@@ -4,21 +4,21 @@
     "port": 3306,
     "username": "root",
     "password": "95325414",
-    "database": "ferrari",
+    "database": "oftalmologia",
     "synchronize": true,
     "logging": false,
     "entities": [
         "typeorm/entity/**/*.ts"
     ],
     "migrations": [
-        "typeorm/migration/**/*.ts"
+        "./src/typeorm/migration/**/*.ts"
     ],
     "subscribers": [
         "typeorm/subscriber/**/*.ts"
     ],
     "cli": {
         "entitiesDir": "typeorm/entity",
-        "migrationsDir": "typeorm/migration",
+        "migrationsDir": "./src/typeorm/migration/",
         "subscribersDir": "typeorm/subscriber"
     }
 
