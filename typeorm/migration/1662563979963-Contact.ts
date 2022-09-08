@@ -25,6 +25,7 @@ export class Contact1662563979963 implements MigrationInterface {
                         type: "varchar",
                         length: "250",
                         isNullable: false,
+                        isUnique: true,
                     },
                     {
                         name: "phone",
