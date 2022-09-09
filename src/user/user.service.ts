@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { parse } from 'date-fns';
+
 import {
    BadRequestException,
    NotFoundException,
@@ -43,7 +45,7 @@ export class UserService {
    }: {
       name: string,
       cpf: string,
-      birthAt: Date,
+      birthAt?: Date,
       phone: string,
       email: string,
       password: string
@@ -68,5 +70,21 @@ export class UserService {
       if(!password) {
          throw new BadRequestException('Password is required.')
       }
+
+      if(birthAt && birthAt.toString().toLocaleLowerCase() === 'nvalid date') {
+         throw new BadRequestException('Birth date is invalid.')
+      }
+
+
+      return this.prisma.user.create({
+         data: {
+            name,
+            cpf,
+            birthAt,
+            phone,
+            email,
+            password
+         }
+      })
    }
 }

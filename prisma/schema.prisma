@@ -13,7 +13,7 @@ model migrations {
   name      String @db.VarChar(255)
 }
 
-model contact {
+model Contact {
   id         Int      @id @default(autoincrement())
   name       String   @db.VarChar(250)
   email      String   @unique(map: "UQ_eff09bb429f175523787f46003b") @db.VarChar(250)
@@ -21,9 +21,11 @@ model contact {
   message    String   @db.VarChar(250)
   created_at DateTime @default(now()) @db.DateTime(0)
   updated_at DateTime @default(now()) @db.DateTime(0)
+
+  @@map("contacts")
 }
 
-model schedules {
+model Schedule {
   id         Int      @id @default(autoincrement())
   name       String   @db.VarChar(250)
   email      String   @db.VarChar(250)
@@ -32,15 +34,20 @@ model schedules {
   message    String   @db.VarChar(250)
   created_at DateTime @default(now()) @db.DateTime(0)
   updated_at DateTime @default(now()) @db.DateTime(0)
+
+   @@map("schedules")
 }
 
-model users {
+model User {
   id         Int      @id @default(autoincrement())
   name       String   @db.VarChar(250)
   cpf        String   @db.VarChar(250)
+  birthAt    DateTime @db.Date
   phone      String   @db.VarChar(250)
   email      String   @db.VarChar(250)
   password   String   @db.VarChar(250)
   created_at DateTime @default(now()) @db.DateTime(0)
   updated_at DateTime @default(now()) @db.DateTime(0)
+
+   @@map("users")
 }
