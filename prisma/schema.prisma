@@ -7,35 +7,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Contact {
-  contact_id Int      @id @default(autoincrement())
-  name       String   @db.VarChar(250)
-  email      String   @db.VarChar(250)
-  phone      String   @db.VarChar(250)
-  message    String   @db.VarChar(250)
-  created_at DateTime @default(now()) @db.DateTime(0)
-  updated_at DateTime @default(now()) @db.DateTime(0)
-}
-
 model migrations {
   id        Int    @id @default(autoincrement())
   timestamp BigInt
   name      String @db.VarChar(255)
 }
 
-model Schedules {
-  schedule_id Int      @id @default(autoincrement())
-  name        String   @db.VarChar(250)
-  email       String   @db.VarChar(250)
-  phone       String   @db.VarChar(250)
-  consult     String   @db.VarChar(250)
-  message     String   @db.VarChar(250)
-  created_at  DateTime @default(now()) @db.DateTime(0)
-  updated_at  DateTime @default(now()) @db.DateTime(0)
+model contact {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(250)
+  email      String   @unique(map: "UQ_eff09bb429f175523787f46003b") @db.VarChar(250)
+  phone      String   @db.VarChar(250)
+  message    String   @db.VarChar(250)
+  created_at DateTime @default(now()) @db.DateTime(0)
+  updated_at DateTime @default(now()) @db.DateTime(0)
 }
 
-model Users {
-  user_id    Int      @id @default(autoincrement())
+model schedules {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(250)
+  email      String   @db.VarChar(250)
+  phone      String   @db.VarChar(250)
+  consult    String   @db.VarChar(250)
+  message    String   @db.VarChar(250)
+  created_at DateTime @default(now()) @db.DateTime(0)
+  updated_at DateTime @default(now()) @db.DateTime(0)
+}
+
+model users {
+  id         Int      @id @default(autoincrement())
   name       String   @db.VarChar(250)
   cpf        String   @db.VarChar(250)
   phone      String   @db.VarChar(250)

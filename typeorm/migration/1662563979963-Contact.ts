@@ -8,7 +8,7 @@ export class Contact1662563979963 implements MigrationInterface {
                 name: "contact",
                 columns: [
                     {
-                        name: "contact_id",
+                        name: "id",
                         type: "integer",
                         isPrimary: true,
                         isGenerated: true,
@@ -19,7 +19,7 @@ export class Contact1662563979963 implements MigrationInterface {
                         type: "varchar",
                         length: "250",
                         isNullable: false,
-                    }, 
+                    },
                     {
                         name: "email",
                         type: "varchar",

@@ -1,3 +1,5 @@
+import { UserModule } from './user/user.module';
+import { UserService } from './user/user.service';
 import { SchedulesModule } from './schedules/schedules.module';
 import { SchedulesService } from './schedules/schedules.service';
 import { SchedulesController } from './schedules/schedules.controller';
@@ -8,13 +10,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
-  imports: [
-    SchedulesModule,
-    ContactModule,
-    PrismaModule,],
-  controllers: [
-    SchedulesController, AppController],
-  providers: [
-    SchedulesService, AppService],
+   imports: [
+      UserModule,
+      SchedulesModule,
+      ContactModule,
+      PrismaModule,],
+   controllers: [
+      SchedulesController, AppController],
+   providers: [
+      UserService,
+      SchedulesService, AppService],
 })
 export class AppModule { }

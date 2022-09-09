@@ -8,7 +8,7 @@ export class User1662561468331 implements MigrationInterface {
                 name: "users",
                 columns: [
                     {
-                        name: "user_id",
+                        name: "id",
                         type: "integer",
                         isPrimary: true,
                         isGenerated: true,
@@ -18,12 +18,17 @@ export class User1662561468331 implements MigrationInterface {
                         name: "name",
                         type: "varchar",
                         length: "250",
-                        isNullable: false,            
+                        isNullable: false,
                     },
                     {
                         name: "cpf",
                         type: "varchar",
                         length: "250",
+                        isNullable: false,
+                    },
+                    {
+                        name: "birthAt",
+                        type: "date",
                         isNullable: false,
                     },
                     {

@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post } from '@nestjs/common';
 import { ContactService } from './contact.service';
+import { CreateContactsDto } from './dto/create-contacts.dto';
 
 // aqui se define os metodos que serão usados no controller
 @Controller('contacts')
@@ -17,8 +18,8 @@ export class ContactController {
     }
 
     @Post()
-    async create(@Body() body) {
-      return this.contactService.create(body);
+    async create(@Body() data: CreateContactsDto) {
+      return this.contactService.create(data);
     }
 
     @Delete(':id')
