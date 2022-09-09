@@ -8,22 +8,22 @@ export class ContactController {
 
     @Get(':id')
     async show(@Param('id') id) {
-        return this.contactService.get(Number(id));
+      return this.contactService.get(Number(id));
     }
 
     @Get()
     async list() {
-        return this.contactService.list();
+      return this.contactService.list();
     }
 
     @Post()
     async create(@Body() body) {
-        return this.contactService.create(body);
+      return this.contactService.create(body);
     }
 
     @Delete(':id')
     @HttpCode(204)
     async delete(@Param('id') id) {
-        return this.contactService.delete(Number(id));
+      return this.contactService.delete(Number(id));
     }
  }
