@@ -3,12 +3,24 @@ import { parse } from 'date-fns';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
 
-@Controller()
+@Controller('auth')
 export class AuthController {
    constructor(
       private authService: AuthService,
       private userService: UserService
    ) {}
+
+   @Post()
+   async verifyEmail(@Body('email') email) {
+
+      try {
+         await this.userService.getByEmail(email);
+         return { exists: true };
+      } catch (e) {
+         return { exists: false };
+
+      }
+   }
 
    @Post('register')
    async register(
@@ -40,5 +52,10 @@ export class AuthController {
       });
 
       return {user};
+   }
+
+   @Post('login')
+   async login(@Body('email') email, @Body('password') password) {
+      return this.authService.login({ email, password})
    }
 }

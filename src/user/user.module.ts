@@ -14,7 +14,7 @@ import { UserService } from './user.service';
       UserService
    ],
    exports:[
-      UserService
+      UserService,
    ]
 })
 export class UserModule { }
