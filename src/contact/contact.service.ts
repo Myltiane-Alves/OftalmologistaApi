@@ -14,7 +14,7 @@ export class ContactService {
 
       return this.db.contact.findUnique({
          where: {
-            contact_id: id,
+             id,
          },
       });
    }
@@ -76,7 +76,7 @@ export class ContactService {
 
       await this.db.contact.delete({
          where: {
-            contact_id: id,
+            id,
          },
       });
 

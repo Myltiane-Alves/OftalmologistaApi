@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { parse } from 'date-fns';
+import  bcrypt  from 'bcrypt';
 
 import {
    BadRequestException,
@@ -11,7 +11,7 @@ import {
 export class UserService {
    constructor(
       private prisma: PrismaService,
-      private userService: UserService
+
    ) {}
 
 
@@ -22,12 +22,18 @@ export class UserService {
          throw new BadRequestException('ID is required')
       }
 
-      const user = await this.prisma.users.findUnique({
+      const user = await this.prisma.user.findUnique({
          where: {
-            user_id: id,
+            id,
+         },
+         include: {
+            person: true
          }
       })
 
+      // if(!hash) {
+      //    delete user.password;
+      // }
       if(!user) {
          throw new NotFoundException('User not found')
       }
@@ -37,16 +43,16 @@ export class UserService {
 
    async create({
       name,
-      cpf,
+      document,
       birthAt,
       phone,
       email,
       password
    }: {
       name: string,
-      cpf: string,
+      document?: string,
       birthAt?: Date,
-      phone: string,
+      phone?: string,
       email: string,
       password: string
    }) {
@@ -55,8 +61,8 @@ export class UserService {
          throw new BadRequestException('Name is required.')
       }
 
-      if(!cpf) {
-         throw new BadRequestException('CPF is required.')
+      if(!document) {
+         throw new BadRequestException('document is required.')
       }
 
       if(!phone) {
@@ -71,20 +77,38 @@ export class UserService {
          throw new BadRequestException('Password is required.')
       }
 
-      if(birthAt && birthAt.toString().toLocaleLowerCase() === 'nvalid date') {
+      if(birthAt && birthAt.toString().toLowerCase() === 'invalid date') {
          throw new BadRequestException('Birth date is invalid.')
       }
 
+      // let user = null;
 
-      return this.prisma.user.create({
+      // try {
+      //    user = await this.getByEmail(email)
+      // } catch(e) {
+
+      // }
+
+      const userCreated = await this.prisma.user.create({
          data: {
-            name,
-            cpf,
-            birthAt,
-            phone,
+            person: {
+               create: {
+                  name,
+                  birthAt,
+                  phone,
+                  document
+               },
+            },
             email,
-            password
+            password,
+         },
+         include: {
+            person: true
          }
       })
+
+      delete userCreated.password;
+
+      return userCreated;
    }
 }
