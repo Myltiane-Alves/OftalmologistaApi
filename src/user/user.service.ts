@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import * as  bcrypt from 'bcrypt';
 import {
    BadRequestException,
    NotFoundException,
@@ -30,9 +31,9 @@ export class UserService {
          }
       })
 
-      // if(!hash) {
-      //    delete user.password;
-      // }
+
+      delete user.password;
+
       if(!user) {
          throw new NotFoundException('User not found')
       }
@@ -126,7 +127,7 @@ export class UserService {
                },
             },
             email,
-            password,
+            password: bcrypt.hashSync(password, 10),
          },
          include: {
             person: true
@@ -191,9 +192,9 @@ export class UserService {
       if (dataPerson) {
          await this.prisma.person.update({
             where: {
-               id,
+               id: user.personId,
             },
-            data: dataUser,
+            data: dataPerson,
          })
       }
 
@@ -206,7 +207,21 @@ export class UserService {
          })
       }
 
+      console.log(dataPerson)
+      console.log(dataUser)
       return this.get(id);
 
    }
+
+   // async checkPassword(id: number, password: string) {
+
+   //    const user = await this.get(id, true)
+
+   //    const checked = await  bcrypt.compare(password, user.password);
+
+   //    (!checked) {
+   //       throw new UnauthorizedException("Email or password is invalid.")
+   //    }
+   //    return true;
+   // }
 }

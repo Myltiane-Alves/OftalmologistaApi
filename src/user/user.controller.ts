@@ -1,6 +1,4 @@
-import { Controller, Put, Query } from '@nestjs/common';
-import { Get, Param, Post, Body } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { Controller, Get, Param, Put, Query, Body } from '@nestjs/common';
 import { UserService } from './user.service';
 
 @Controller('users')
@@ -22,6 +20,7 @@ export class UserController {
       @Param('id') id,
       @Body() body,
    ) {
+      console.log(body);
       return this.userService.update(id, body);
    }
 }

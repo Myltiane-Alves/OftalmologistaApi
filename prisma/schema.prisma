@@ -58,7 +58,7 @@ model Person {
   document  String   @db.VarChar(14)
   createdAt DateTime @default(now()) @db.DateTime(0)
   updatedAt DateTime @default(now()) @db.DateTime(0)
-  User     User[]   @relation("personsTousers")
+  User      User[]   @relation("personsTousers")
 
   @@map("persons")
 }
