@@ -60,6 +60,8 @@ export class AuthService {
             token,
          }
       })
+
+      return { success: true}
    }
 
 }
