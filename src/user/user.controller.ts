@@ -20,7 +20,7 @@ export class UserController {
       @Param('id') id,
       @Body() body,
    ) {
-      console.log(body);
+
       return this.userService.update(id, body);
    }
 }
