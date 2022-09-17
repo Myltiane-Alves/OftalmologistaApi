@@ -22,7 +22,6 @@ export class AuthService {
 
       const user = await this.userService.getByEmail(email);
 
-      console.log(user.id, password);
       await this.userService.checkPassword(user.id, password)
 
       const token = await this.getToken(user.id);
@@ -41,6 +40,10 @@ export class AuthService {
       }
 
       return this.jwtService.decode(token);
+
+   }
+
+   async recovery(email: string) {
 
    }
 
