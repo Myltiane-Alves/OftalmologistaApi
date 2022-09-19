@@ -5,6 +5,8 @@ import { PrismaModule } from './prisma/prisma.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { UserController } from './user/user.controller';
+import { ContactController } from './contact/contact.controller';
+import { ContactModule } from './contact/contact.module';
 
 
 @Module({
@@ -12,6 +14,7 @@ import { UserController } from './user/user.controller';
       MailModule,
       AuthModule,
       UserModule,
+      ContactModule,
       PrismaModule,],
    controllers: [
       UserController, AppController],

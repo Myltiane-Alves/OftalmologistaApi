@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class AuthService {
@@ -9,6 +10,7 @@ export class AuthService {
       private jwtService: JwtService,
       private userService: UserService,
       private prisma: PrismaService,
+      private mailService: MailService
    ) {}
 
    async getToken(userId: number) {
@@ -47,8 +49,8 @@ export class AuthService {
 
    async recovery(email: string) {
 
-      const { id, person } = await this.userService.getByEmail(email);
-      const { name } = person;
+      const { id } = await this.userService.getByEmail(email);
+      // const { name } = person;
 
       const token = await this.jwtService.sign({ id }, {
          expiresIn: 30 * 60
@@ -60,6 +62,16 @@ export class AuthService {
             token,
          }
       })
+
+      // await this.mailService.send({
+      //    to: email,
+      //    subject: 'Recuperação de senha',
+      //    template: 'forget',
+      //    data: {
+      //       name,
+      //       url: `https://ferrar-myltiane.web.app/auth.html?token=${token}`,
+      //    }
+      // })
 
       return { success: true}
    }
